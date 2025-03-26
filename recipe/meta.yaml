@@ -1,0 +1,44 @@
+package:
+  name: flash-attention
+  version: "1.0.0"
+
+source:
+  url: https://files.pythonhosted.org/packages/7c/62/a3ffe7a541645e72298f055ec894bc5b9d890ec7cacbf068c7734e2c0998/flash_attention-1.0.0-py3-none-any.whl
+  sha256: 9f8293b16dda6e46149cf73631158c40afec1393db66698fa45f8ba4b64b5f3e
+
+build:
+  number: 0
+    #script: "{{ PYTHON }} -m pip install . -vv" --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - python
+    - pip
+    - {{ compiler('cxx') }}
+       #- gcc  # or clang, depending on OS
+    - ninja
+    - cudatoolkit >=11.7
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - pytorch 
+
+test:
+  imports:
+    - flash_attention
+
+about:
+  home: https://github.com/Dao-AILab/flash-attention
+  license: Apache-2.0
+  summary: Fast and memory-efficient exact attention algorithm.
+  dev_url: https://github.com/Dao-AILab/flash-attention
+  doc_url: https://github.com/Dao-AILab/flash-attention/blob/main/README.md
+
+extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/70829
+    reason: Client request
+  recipe-maintainers:
+    - ianaobi
